@@ -1,6 +1,6 @@
 # R100 – Update files after architecture.yaml changes
 
-**Status**: Planned  
+**Status**: Shipped  
 **Task Type**: Updates
 **Run Mode**: Run as needed
 
@@ -55,11 +55,13 @@ Before marking this task as completed:
 ## Implementation notes (to be updated by the agent)
 
 **Summary of changes**
-- Updated files: _high‑level summary of changes_
+- **docker-compose.yaml**: Renamed sample_api/sample_spa → profile_api/profile_spa; added mentor_api, mentor_spa, member_api, member_spa; updated profiles (runbook-api, runbook, schema-api, schema, profile-api, profile, mentor-api, mentor, member-api, member); updated welcome service profiles; aligned mongodb/mongodb_api/mongodb_spa profiles with schema domain naming.
+- **index.html**: Replaced placeholder with links for Runbook, Schema Configuration, Profile, Mentor, Member (SPA + API Explorer for each); reordered links; updated script to set hrefs for all services.
 
 **Testing results**
-- Packaging/build: _command(s) run, high‑level outcome_
+- Packaging/build: `make container` completed successfully; image `ghcr.io/agile-learning-institute/mentorhub:latest` built.
 
 **Follow‑up tasks**
-- _e.g., "Publish updated container images."_
+- Publish updated container image when ready.
+- Ensure profile, mentor, member API/SPA images exist at ghcr.io (mentorhub_profile_api, mentorhub_profile_spa, mentorhub_mentor_api, mentorhub_mentor_spa, mentorhub_member_api, mentorhub_member_spa).
 
