@@ -1,6 +1,6 @@
 $schema: "https://github.com/agile-learning-institute/stage0/blob/main/Schemas/journeys.schema.yaml"
-$id: "https://github.com/{{org.git_org}}/{{info.slug}}/blob/main/Specifications/journeys.yaml"
-title: User Journeys for {{info.name}}
+$id: "https://github.com/agile-learning-institute/mentorhub/blob/main/Specifications/journeys.yaml"
+title: User Journeys for Mentor Hub
 
 journeys:
   - name: User Journey Name
