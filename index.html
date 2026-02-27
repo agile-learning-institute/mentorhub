@@ -117,8 +117,27 @@
         <p class="subtitle">Welcome to the Development Environment</p>
         <ul class="links">
             <li>
-                <a href="#" class="coming-soon">
-                    <span class="coming-soon-text">- Add new Services Here</span>
+                <a href="http://HOST_NAME:8390" id="profile-link" target="_blank">
+                    Profile
+                </a>
+                <a href="http://HOST_NAME:8389/docs/explorer.html" id="profile-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
+                    🔍 API Explorer
+                </a>
+            </li>
+            <li>
+                <a href="http://HOST_NAME:8392" id="mentor-link" target="_blank">
+                    Mentor
+                </a>
+                <a href="http://HOST_NAME:8391/docs/explorer.html" id="mentor-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
+                    🔍 API Explorer
+                </a>
+            </li>
+            <li>
+                <a href="http://HOST_NAME:8394" id="member-link" target="_blank">
+                    Member
+                </a>
+                <a href="http://HOST_NAME:8393/docs/explorer.html" id="member-explorer-link" class="explorer-link" target="_blank" title="Open API Explorer">
+                    🔍 API Explorer
                 </a>
             </li>
             <li>
@@ -142,6 +161,12 @@
     <script>
         // Replace HOST_NAME with actual hostname or use window.location.hostname
         const hostname = window.location.hostname || 'localhost';
+        document.getElementById('profile-link').href = `http://${hostname}:8390`;
+        document.getElementById('profile-explorer-link').href = `http://${hostname}:8389/docs/explorer.html`;
+        document.getElementById('mentor-link').href = `http://${hostname}:8392`;
+        document.getElementById('mentor-explorer-link').href = `http://${hostname}:8391/docs/explorer.html`;
+        document.getElementById('member-link').href = `http://${hostname}:8394`;
+        document.getElementById('member-explorer-link').href = `http://${hostname}:8393/docs/explorer.html`;
         document.getElementById('database-link').href = `http://${hostname}:8386`;
         document.getElementById('database-explorer-link').href = `http://${hostname}:8385/docs/index.html`;
         document.getElementById('runbook-link').href = `http://${hostname}:8384/`;

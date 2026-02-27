@@ -11,7 +11,12 @@ services:
       - all
       - runbook
       - mongodb
-      - sample
+      - profile
+      - profile-api
+      - mentor
+      - mentor-api
+      - member
+      - member-api
 
   ##################################
   # Custom Runbook API Service (Deployed Profile)
@@ -76,8 +81,12 @@ services:
     profiles:
       - all
       - mongodb
-      - sample
-      - sample_api
+      - profile
+      - profile-api
+      - mentor
+      - mentor-api
+      - member
+      - member-api
 
   ##################################
   # Mongo Database Configuration Utilities
@@ -102,8 +111,12 @@ services:
     profiles:
       - all
       - mongodb
-      - sample
-      - sample_api
+      - profile
+      - profile-api
+      - mentor
+      - mentor-api
+      - member
+      - member-api
 
   mongodb_spa:
     image: ghcr.io/agile-learning-institute/mongodb_configurator_spa:latest
@@ -120,14 +133,18 @@ services:
     profiles:
       - all
       - mongodb
-      - sample
-      - sample_api
+      - profile
+      - profile-api
+      - mentor
+      - mentor-api
+      - member
+      - member-api
 
   ##################################
-  # Sample Microservice 
+  # Profile Microservice 
   ##################################
-  sample_api:
-    image: ghcr.io/agile-learning-institute/mentorhub_sample_api:latest
+  profile_api:
+    image: ghcr.io/agile-learning-institute/mentorhub_profile_api:latest
     restart: no
     ports:
       - "127.0.0.1:8389:8389"
@@ -138,28 +155,107 @@ services:
       ENABLE_LOGIN: "true"
       LOGGING_LEVEL: "INFO"
       JWT_SECRET: ${JWT_SECRET}
-      SAMPLE_API_PORT: 8389
-      SAMPLE_SPA_PORT: 8390
+      API_PORT: 8389
     depends_on:
       mongodb_api:
         condition: service_started
     profiles:
       - all
-      - sample
-      - sample_api
+      - profile
+      - profile-api
 
-  sample_spa:
-    image: ghcr.io/agile-learning-institute/mentorhub_sample_spa:latest
+  profile_spa:
+    image: ghcr.io/agile-learning-institute/mentorhub_profile_spa:latest
     restart: no
     ports:
       - "127.0.0.1:8390:80"
     environment:
-      API_HOST: sample_api
+      API_HOST: profile_api
       API_PORT: 8389
-      SPA_PORT: 8390
+      IDP_LOGIN_URI: ${IDP_LOGIN_URI:-http://localhost:8390/login}
     depends_on:
-      sample_api:
+      profile_api:
         condition: service_started
     profiles:
       - all
-      - sample
+      - profile
+
+  ##################################
+  # Mentor Microservice 
+  ##################################
+  mentor_api:
+    image: ghcr.io/agile-learning-institute/mentorhub_mentor_api:latest
+    restart: no
+    ports:
+      - "127.0.0.1:8391:8391"
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://mongodb:27017/
+      MONGODB_REQUIRE_TLS: False
+      MONGO_DB_NAME: mentor_hub
+      ENABLE_LOGIN: "true"
+      LOGGING_LEVEL: "INFO"
+      JWT_SECRET: ${JWT_SECRET}
+      API_PORT: 8391
+    depends_on:
+      mongodb_api:
+        condition: service_started
+    profiles:
+      - all
+      - mentor
+      - mentor-api
+
+  mentor_spa:
+    image: ghcr.io/agile-learning-institute/mentorhub_mentor_spa:latest
+    restart: no
+    ports:
+      - "127.0.0.1:8392:80"
+    environment:
+      API_HOST: mentor_api
+      API_PORT: 8391
+      IDP_LOGIN_URI: ${IDP_LOGIN_URI:-http://localhost:8392/login}
+    depends_on:
+      mentor_api:
+        condition: service_started
+    profiles:
+      - all
+      - mentor
+
+  ##################################
+  # Member Microservice 
+  ##################################
+  member_api:
+    image: ghcr.io/agile-learning-institute/mentorhub_member_api:latest
+    restart: no
+    ports:
+      - "127.0.0.1:8393:8393"
+    environment:
+      MONGO_CONNECTION_STRING: mongodb://mongodb:27017/
+      MONGODB_REQUIRE_TLS: False
+      MONGO_DB_NAME: mentor_hub
+      ENABLE_LOGIN: "true"
+      LOGGING_LEVEL: "INFO"
+      JWT_SECRET: ${JWT_SECRET}
+      API_PORT: 8393
+    depends_on:
+      mongodb_api:
+        condition: service_started
+    profiles:
+      - all
+      - member
+      - member-api
+
+  member_spa:
+    image: ghcr.io/agile-learning-institute/mentorhub_member_spa:latest
+    restart: no
+    ports:
+      - "127.0.0.1:8394:80"
+    environment:
+      API_HOST: member_api
+      API_PORT: 8393
+      IDP_LOGIN_URI: ${IDP_LOGIN_URI:-http://localhost:8394/login}
+    depends_on:
+      member_api:
+        condition: service_started
+    profiles:
+      - all
+      - member

@@ -66,3 +66,20 @@ Before marking this task as completed:
 ## Implementation notes (to be updated by the agent)
 
 **Summary of changes**
+
+### docker-compose.yaml
+- **Removed**: `sample_api`, `sample_spa` (legacy placeholders)
+- **Added**: `profile_api` / `profile_spa` (ports 8389/8390), `mentor_api` / `mentor_spa` (ports 8391/8392), `member_api` / `member_spa` (ports 8393/8394)
+- **Updated welcome profiles**: Replaced `sample` with `profile`, `profile-api`, `mentor`, `mentor-api`, `member`, `member-api` so welcome starts with every profile
+- **Updated mongodb/mongodb_api/mongodb_spa profiles**: Same profile updates; removed sample/sample_api
+- Each API has `API_PORT`; each SPA has `IDP_LOGIN_URI` with its own port for dev-login
+- Profiles: `{domain}-api` (API only), `{domain}` (API + SPA); all services in `all` profile
+
+### index.html
+- **Added** Profile, Mentor, Member SPAs at top of list (ports 8390, 8392, 8394)
+- **Added** API Explorer links for each backing API at `/docs/explorer.html` (ports 8389, 8391, 8393)
+- **Removed** placeholder "Add new Services Here"
+- Schema and runbook links unchanged per task
+
+### Testing
+- `make container` completed successfully
