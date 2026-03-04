@@ -66,3 +66,5 @@ Before marking this task as completed:
 ## Implementation notes (to be updated by the agent)
 
 **Summary of changes**
+ - Updated `DeveloperEdition/docker-compose.yaml` to remove legacy sample services, add profile, mentor, and member API/SPA services with correct ports and profiles from `Specifications/architecture.yaml`, and ensure backing services and welcome are wired into all profiles.
+ - Updated `index.html` to add SPA and API Explorer links for the profile, mentor, and member domains using the correct ports, keeping existing schema and runbook links unchanged.
